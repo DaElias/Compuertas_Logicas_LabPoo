@@ -5,8 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.*;
 import javax.swing.JPanel;
 
-/**
- */
+
 public class GatePanel extends JPanel
   {
     public And and01 = new And(100, 100, 60, 50, 3);
