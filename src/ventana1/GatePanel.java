@@ -10,6 +10,8 @@ public class GatePanel extends JPanel
   {
     public And and01 = new And(100, 100, 60, 50, 3);
     
+    Not not = new Not(80, 80, 50, 50);
+    
     public GatePanel()
     {
         addMouseListener(
@@ -22,12 +24,18 @@ public class GatePanel extends JPanel
                     and01.prevCapX = evt.getX();
                     and01.prevCapY = evt.getY();
                 }
+                if (not.isIn(evt.getX(), evt.getY())){
+                    not.mouseCaptured = true;
+                    not.prevCapX = evt.getX();
+                    not.prevCapY = evt.getY();
+                }
             }
 
             @Override
             public void mouseReleased(MouseEvent evt)
             {
                 and01.mouseCaptured = false;
+                not.mouseCaptured = false;
             }
         });
 
@@ -47,6 +55,17 @@ public class GatePanel extends JPanel
 
                     repaint();
                 }
+                if (not.mouseCaptured){
+                    int incx = evt.getX() - not.prevCapX;
+                    int incy = evt.getY() - not.prevCapY;
+
+                    not.setNewLocation(not.getX() + incx, not.getY() + incy);
+
+                    not.prevCapX = evt.getX();
+                    not.prevCapY = evt.getY();
+
+                    repaint();
+                }
             }
         });
     }
@@ -56,5 +75,6 @@ public class GatePanel extends JPanel
         super.paintComponent(g);
 
         and01.Draw(g);
+        not.draw(g);
     }
 }
