@@ -16,7 +16,6 @@ public class MainJFrame extends javax.swing.JFrame {
         gp.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(gp);
     }
-// holasas
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
