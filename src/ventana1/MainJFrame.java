@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ventana1;
 
 import java.awt.BorderLayout;
 
-/**
- *
- * @author NLEAL
- */
+
 public class MainJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainJFrame
-     */
 
     GatePanel gp;
 
@@ -26,7 +16,7 @@ public class MainJFrame extends javax.swing.JFrame {
         gp.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(gp);
     }
-
+// holasas
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
