@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 
 public class GatePanel extends JPanel
   {
-    public And and01 = new And(100, 100, 60, 50, 3);
+    public And and01 = new And(100, 100, 60, 50, 2);
     
-    Not not = new Not(80, 80, 50, 50);
+    Not not = new Not(80, 80, 50, 50); // x,y, anchura, altura
     
     public GatePanel()
     {
