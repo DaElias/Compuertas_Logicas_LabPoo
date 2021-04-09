@@ -5,6 +5,9 @@
  */
 package ventana1;
 
+import java.awt.Graphics;
+import java.awt.Point;
+
 /**
  *
  * @author NLEAL
@@ -38,8 +41,39 @@ public class Gate {
         return this.output;
     }
     
+    public boolean IsIn(int x, int y)
+    {
+        return (this.x <= x && this.y <= y && 
+                this.x + this.width >= x && this.y + height >= y);
+    }
+    
+    public void UpdateLocation(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int GetXLocation()
+    {
+        return x;
+    }
+
+    public int GetYLocation()
+    {
+        return y;
+    }
+
+    public Point GetLocation()
+    {
+        return new Point(x, y);
+    }
+      
     protected boolean eval()
     {
         return true;
+    }
+      
+    protected void Draw(Graphics g)
+    {
     }
 }
