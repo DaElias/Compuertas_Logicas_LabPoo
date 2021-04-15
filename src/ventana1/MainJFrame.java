@@ -97,8 +97,18 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         orT.setText("2");
+        orT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orTActionPerformed(evt);
+            }
+        });
 
         notT.setText("1");
+        notT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notTActionPerformed(evt);
+            }
+        });
 
         andT.setText("2");
         andT.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +118,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         xorT.setText("2");
+        xorT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xorTActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("NAND");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +132,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         nandT.setText("2");
+        nandT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nandTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,21 +226,39 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        gp.gates.add(0, new Not(100, 100, 50, 60, Integer.valueOf(orT.getText())));
+        gp.gates.add(0, new Not(100, 100, 50, 60, Integer.valueOf(notT.getText())));
         repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        gp.gates.add(0, new XOr(100, 100, 50, 60, Integer.valueOf(orT.getText())));
+        gp.gates.add(0, new XOr(100, 100, 50, 60, Integer.valueOf(xorT.getText())));
         repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        gp.gates.add(0, new Nand(100, 100, 50, 60, Integer.valueOf(orT.getText())));
+        gp.gates.add(0, new Nand(100, 100, 50, 60, Integer.valueOf(nandT.getText())));
         repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void xorTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xorTActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_xorTActionPerformed
+
+    private void nandTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nandTActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_nandTActionPerformed
+
+    private void notTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_notTActionPerformed
+
+    private void orTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orTActionPerformed
 
     /**
      * @param args the command line arguments
