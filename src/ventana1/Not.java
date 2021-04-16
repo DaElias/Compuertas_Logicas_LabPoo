@@ -12,6 +12,8 @@ import java.awt.Graphics;
  * @author NLEAL
  */
 public class Not extends Gate{
+    private int ballWidth = 10;
+    private int ballHeight = 10;
     public Not(int x, int y, int w, int h, int nInputs)
     {
         super( 1 );
@@ -33,7 +35,8 @@ public class Not extends Gate{
         g.drawLine(x, y + height/2, x - pinLen, y + height/2);
         
         //Output
-        g.drawLine(x + width, y + height/2, x + width + pinLen, y + height/2);
+        g.drawOval(x + width, (y + height/2) - ballWidth/2, ballWidth, ballHeight);
+        g.drawLine(x + width + ballWidth, y + height/2, x + width + pinLen + ballWidth, y + height/2);
     }
     
     @Override
