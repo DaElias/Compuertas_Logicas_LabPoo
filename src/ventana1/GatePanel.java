@@ -8,43 +8,50 @@ import javax.swing.JPanel;
 
 /**
  */
-public class GatePanel extends JPanel
-  { 
+public class GatePanel extends JPanel {
+
     ArrayList<Gate> gates = null;
     final int none = 0;
     final int and = 1;
-    final int or  = 2;
+    final int or = 2;
     final int not = 3;
     final int xOr = 4;
     final int nand = 5;
     final int X = -1;
-    final int gateWidth  = 40;
+    final int gateWidth = 40;
     final int gateHeight = 30;
-    
+
     public int capturedGate;
     public int nInputs;
-        
-    public GatePanel()
-    {
+
+    static private Puntos Pinicial;
+    private Puntos Pfinal;
+
+    public GatePanel() {
+        this.Pinicial = new Puntos();
+        this.Pfinal = new Puntos();
+
         addMouseListener(
-            new MouseAdapter() {
+                new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent evt){
-                if(capturedGate != none){
+            public void mouseClicked(MouseEvent evt) {
+                if (capturedGate != none) {
                     drawGate(capturedGate, evt.getX(), evt.getY(), gateWidth, gateHeight, nInputs);
                 }
                 repaint();
-            }    
-                
-            @Override
-            public void mousePressed(MouseEvent evt)
-            {
-                if(gates != null){
-                    for(Gate gate : gates)
-                    {
-                        gate = (Gate)gate;
-                        if (gate.IsIn(evt.getX(), evt.getY()))
-                        {
+            }
+
+            @Override  //clik 
+            public void mousePressed(MouseEvent evt) {
+                Pinicial.setX(evt.getX());
+                Pinicial.setY(evt.getY());
+                //System.out.println(Pinicial.getX());
+                //System.out.println(Pinicial.getY());
+
+                if (gates != null) {
+                    for (Gate gate : gates) {
+                        gate = (Gate) gate;
+                        if (gate.IsIn(evt.getX(), evt.getY())) {
                             gate.mouseCaptured = true;
                             gate.prevCapX = evt.getX();
                             gate.prevCapY = evt.getY();
@@ -54,11 +61,9 @@ public class GatePanel extends JPanel
             }
 
             @Override
-            public void mouseReleased(MouseEvent evt)
-            {
-                if(gates != null){
-                    for(Gate gate : gates)
-                    {
+            public void mouseReleased(MouseEvent evt) {
+                if (gates != null) {
+                    for (Gate gate : gates) {
                         gate.mouseCaptured = false;
                     }
                 }
@@ -66,14 +71,12 @@ public class GatePanel extends JPanel
         });
 
         addMouseMotionListener(
-            new MouseAdapter() {
+                new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent evt) {
-                if(gates != null){
-                    for(Gate gate : gates)
-                    {
-                        if (gate.mouseCaptured)
-                        {
+                if (gates != null) {
+                    for (Gate gate : gates) {
+                        if (gate.mouseCaptured) {
                             int incx = evt.getX() - gate.prevCapX;
                             int incy = evt.getY() - gate.prevCapY;
 
@@ -89,23 +92,23 @@ public class GatePanel extends JPanel
             }
         });
     }
-    
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        if(gates != null){
+
+        if (gates != null) {
             for (Gate gate : gates) {
                 gate.Draw(g);
             }
         }
     }
-    
-    public void drawGate(int type, int x, int y, int width, int height, int inputs){
-        if(gates == null){
+
+    public void drawGate(int type, int x, int y, int width, int height, int inputs) {
+        if (gates == null) {
             gates = new ArrayList<Gate>();
         }
-        switch(type){
+        switch (type) {
             case and:
                 gates.add(new And(x, y, 50, 60, inputs));
                 break;
