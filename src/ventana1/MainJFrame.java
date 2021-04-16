@@ -60,6 +60,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Posiciones(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -241,6 +246,9 @@ public class MainJFrame extends javax.swing.JFrame {
         //gp.nInputs = Integer.parseInt(inputTxt.getText());
 
     }//GEN-LAST:event_inputTxtPropertyChange
+
+    private void Posiciones(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Posiciones
+    }//GEN-LAST:event_Posiciones
 
     /**
      * @param args the command line arguments
