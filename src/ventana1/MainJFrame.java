@@ -14,13 +14,10 @@ import java.util.ArrayList;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
-    
     //public ArrayList<Gate> gates = new ArrayList<Gate>();
-        
     /**
      * Creates new form MainJFrame
      */
-
     final int none = 0;
     final int and = 1;
     final int or = 2;
@@ -29,9 +26,9 @@ public class MainJFrame extends javax.swing.JFrame {
     final int nand = 5;
     final int X = -1;
     final int C = -2;
-    
+
     int gateType = none;
-    
+
     GatePanel gp;
 
     public MainJFrame() {
@@ -104,9 +101,19 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         inputTxt.setText("2");
+        inputTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                click(evt);
+            }
+        });
         inputTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputTxtActionPerformed(evt);
+            }
+        });
+        inputTxt.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                inputTxtPropertyChange(evt);
             }
         });
 
@@ -163,24 +170,27 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(gateType == and){
+        if (gateType == and) {
             gateType = none;
-        }else{
+        } else {
             gateType = and;
         }
         gp.capturedGate = gateType;
+        System.out.println(gateType);
         gp.nInputs = Integer.parseInt(inputTxt.getText());
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void inputTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTxtActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_inputTxtActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(gateType == or){
+        if (gateType == or) {
             gateType = none;
-        }else{
+        } else {
             gateType = or;
         }
         gp.capturedGate = gateType;
@@ -189,9 +199,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if(gateType == not){
+        if (gateType == not) {
             gateType = none;
-        }else{
+        } else {
             gateType = not;
         }
         gp.capturedGate = gateType;
@@ -200,9 +210,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        if(gateType == xor){
+        if (gateType == xor) {
             gateType = none;
-        }else{
+        } else {
             gateType = xor;
         }
         gp.capturedGate = gateType;
@@ -211,14 +221,26 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if(gateType == nand){
+        if (gateType == nand) {
             gateType = none;
-        }else{
+        } else {
             gateType = nand;
         }
         gp.capturedGate = gateType;
         gp.nInputs = Integer.parseInt(inputTxt.getText());
     }//GEN-LAST:event_jButton5ActionPerformed
+    //se agrego el clik
+    private void click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_click
+        // TODO add your handling code here
+        //System.out.println("asd");
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_click
+
+    private void inputTxtPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_inputTxtPropertyChange
+        // TODO add your handling code here:
+        //gp.nInputs = Integer.parseInt(inputTxt.getText());
+
+    }//GEN-LAST:event_inputTxtPropertyChange
 
     /**
      * @param args the command line arguments

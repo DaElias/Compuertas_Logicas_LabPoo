@@ -132,7 +132,9 @@
         <Property name="text" type="java.lang.String" value="2"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="click"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputTxtActionPerformed"/>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="inputTxtPropertyChange"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton5">
