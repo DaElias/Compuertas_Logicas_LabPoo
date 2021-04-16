@@ -21,6 +21,17 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
 
+    final int none = 0;
+    final int and = 1;
+    final int or = 2;
+    final int not = 3;
+    final int xor = 4;
+    final int nand = 5;
+    final int X = -1;
+    final int C = -2;
+    
+    int gateType = none;
+    
     GatePanel gp;
 
     public MainJFrame() {
@@ -152,9 +163,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        //GatePanel a = new GatePanel();
-            gp.gates.add(0, new And(100, 100, 50, 60, Integer.valueOf(inputTxt.getText())));
-            repaint();
+        if(gateType == and){
+            gateType = none;
+        }else{
+            gateType = and;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void inputTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTxtActionPerformed
@@ -163,26 +178,46 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        gp.gates.add(0, new Or(100, 100, 50, 60, Integer.valueOf(inputTxt.getText())));
-        repaint();
+        if(gateType == or){
+            gateType = none;
+        }else{
+            gateType = or;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        gp.gates.add(0, new Not(100, 100, 50, 60, Integer.valueOf(inputTxt.getText())));
-        repaint();
+        if(gateType == not){
+            gateType = none;
+        }else{
+            gateType = not;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        gp.gates.add(0, new XOr(100, 100, 50, 60, Integer.valueOf(inputTxt.getText())));
-        repaint();
+        if(gateType == xor){
+            gateType = none;
+        }else{
+            gateType = xor;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        gp.gates.add(0, new Nand(100, 100, 50, 60, Integer.valueOf(inputTxt.getText())));
-        repaint();
+        if(gateType == nand){
+            gateType = none;
+        }else{
+            gateType = nand;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
