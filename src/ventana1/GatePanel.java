@@ -24,9 +24,9 @@ public class GatePanel extends JPanel {
     public int capturedGate;
     public int nInputs;
 
-    static private Puntos Pinicial;
-    private Puntos Pfinal;
-
+    static public Puntos Pinicial;
+    static private Puntos Pfinal;
+    static private int conta=0;
     public GatePanel() {
         this.Pinicial = new Puntos();
         this.Pfinal = new Puntos();
@@ -45,8 +45,8 @@ public class GatePanel extends JPanel {
             public void mousePressed(MouseEvent evt) {
                 Pinicial.setX(evt.getX());
                 Pinicial.setY(evt.getY());
-                //System.out.println(Pinicial.getX());
-                //System.out.println(Pinicial.getY());
+                System.out.println(Pinicial.getX());
+                System.out.println(Pinicial.getY());
 
                 if (gates != null) {
                     for (Gate gate : gates) {
