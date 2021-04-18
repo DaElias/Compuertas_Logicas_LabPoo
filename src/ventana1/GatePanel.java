@@ -36,7 +36,18 @@ public class GatePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 if (capturedGate != none) {
-                    drawGate(capturedGate, evt.getX(), evt.getY(), gateWidth, gateHeight, nInputs);
+                    if (capturedGate == X){
+                        if (gates != null){
+                            for (Gate gate:gates){
+                                if (gate.IsIn(evt.getX(), evt.getY())) {
+                                    gates.remove(gate);
+                                    break;
+                                }
+                            }
+                        }
+                    }else{
+                        drawGate(capturedGate, evt.getX(), evt.getY(), gateWidth, gateHeight, nInputs);    
+                    }
                 }
                 repaint();
             }
