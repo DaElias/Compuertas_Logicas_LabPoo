@@ -7,6 +7,7 @@ package ventana1;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +23,8 @@ public class Gate {
     int prevCapY;
     int outputPointX;
     int outputPointY;
+    
+    ArrayList<Conector> connect;
    
     protected boolean [] inputs;
     protected boolean output = false;
