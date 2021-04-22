@@ -54,12 +54,8 @@ public class GatePanel extends JPanel {
                 repaint();
             }
 
-            @Override  //clik 
+            @Override  //click
             public void mousePressed(MouseEvent evt) {
-//                Pinicial.setX(evt.getX());
-//                Pinicial.setY(evt.getY());
-//                System.out.println(Pinicial.getX());
-//                System.out.println(Pinicial.getY());
                 if (gates != null) {
                     for (Gate gate : gates) {
                         gate = (Gate) gate;
@@ -70,24 +66,6 @@ public class GatePanel extends JPanel {
                         }
                     }
                 }
-                if(connect != null){
-                    for (Conector conector : connect){
-                        for(Gate gate : gates){
-                            if(clickCount == 2){
-                                conector.destinyPoint(evt.getX(), evt.getY());
-                                clickCount = 1;
-                            }else if(clickCount == 1){
-                                    if (gate.isInOutput(evt.getX(), evt.getY())) {
-                                        conector.originPoint(evt.getX(), evt.getY());
-                                        System.out.println(conector.x+", "+conector.y);
-                                        clickCount++;
-                                    }
-                                }
-                            break;
-                        }
-                    }
-                }
-                System.out.println(clickCount);
             }
 
             @Override
@@ -132,13 +110,6 @@ public class GatePanel extends JPanel {
                 gate.Draw(g);
             }
         }
-        if(clickCount == 2){
-            if (connect != null) {
-                for (Conector conector : connect) {
-                    conector.drawConector(g);
-                }
-            }
-       }
     }
 
     public void drawGate(int type, int x, int y, int width, int height, int inputs) {
@@ -163,9 +134,6 @@ public class GatePanel extends JPanel {
                 break;
             case nand:
                 gates.add(new Nand(x, y, 50, 60, inputs));
-                break;
-            case C:
-                connect.add(new Conector());
                 break;
         }
     }
