@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 public class GatePanel extends JPanel {
 
     ArrayList<Gate> gates = null;
+    ArrayList<Conector> connect = null;
     final int none = 0;
     final int and = 1;
     final int or = 2;
@@ -18,15 +19,16 @@ public class GatePanel extends JPanel {
     final int xOr = 4;
     final int nand = 5;
     final int X = -1;
+    final int C = -2;
     final int gateWidth = 40;
     final int gateHeight = 30;
 
     public int capturedGate;
     public int nInputs;
 
-    static public Puntos Pinicial;
-    static private Puntos Pfinal;
-    static private int conta=0;
+    public Puntos Pinicial;
+    private Puntos Pfinal;
+    private int clickCount = 1;
     public GatePanel() {
         this.Pinicial = new Puntos();
         this.Pfinal = new Puntos();
@@ -54,11 +56,10 @@ public class GatePanel extends JPanel {
 
             @Override  //clik 
             public void mousePressed(MouseEvent evt) {
-                Pinicial.setX(evt.getX());
-                Pinicial.setY(evt.getY());
-                System.out.println(Pinicial.getX());
-                System.out.println(Pinicial.getY());
-
+//                Pinicial.setX(evt.getX());
+//                Pinicial.setY(evt.getY());
+//                System.out.println(Pinicial.getX());
+//                System.out.println(Pinicial.getY());
                 if (gates != null) {
                     for (Gate gate : gates) {
                         gate = (Gate) gate;
@@ -69,6 +70,24 @@ public class GatePanel extends JPanel {
                         }
                     }
                 }
+                if(connect != null){
+                    for (Conector conector : connect){
+                        for(Gate gate : gates){
+                            if(clickCount == 2){
+                                conector.destinyPoint(evt.getX(), evt.getY());
+                                clickCount = 1;
+                            }else if(clickCount == 1){
+                                    if (gate.isInOutput(evt.getX(), evt.getY())) {
+                                        conector.originPoint(evt.getX(), evt.getY());
+                                        System.out.println(conector.x+", "+conector.y);
+                                        clickCount++;
+                                    }
+                                }
+                            break;
+                        }
+                    }
+                }
+                System.out.println(clickCount);
             }
 
             @Override
@@ -95,7 +114,7 @@ public class GatePanel extends JPanel {
 
                             gate.prevCapX = evt.getX();
                             gate.prevCapY = evt.getY();
-
+                            
                             repaint();
                         }
                     }
@@ -113,11 +132,21 @@ public class GatePanel extends JPanel {
                 gate.Draw(g);
             }
         }
+        if(clickCount == 2){
+            if (connect != null) {
+                for (Conector conector : connect) {
+                    conector.drawConector(g);
+                }
+            }
+       }
     }
 
     public void drawGate(int type, int x, int y, int width, int height, int inputs) {
         if (gates == null) {
             gates = new ArrayList<Gate>();
+        }
+        if (connect == null) {
+            connect = new ArrayList<Conector>();
         }
         switch (type) {
             case and:
@@ -134,6 +163,9 @@ public class GatePanel extends JPanel {
                 break;
             case nand:
                 gates.add(new Nand(x, y, 50, 60, inputs));
+                break;
+            case C:
+                connect.add(new Conector());
                 break;
         }
     }

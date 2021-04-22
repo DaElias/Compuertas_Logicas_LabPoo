@@ -57,6 +57,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
+        conectarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,6 +146,13 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        conectarBtn.setText("CONECTAR");
+        conectarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                conectarBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,10 +174,12 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(conectarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(deleteBtn)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
                         .addGap(22, 22, 22))))
         );
@@ -187,7 +197,8 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addComponent(inputTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton6)
-                        .addComponent(deleteBtn)))
+                        .addComponent(deleteBtn)
+                        .addComponent(conectarBtn)))
                 .addGap(35, 35, 35)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -204,7 +215,6 @@ public class MainJFrame extends javax.swing.JFrame {
             gateType = and;
         }
         gp.capturedGate = gateType;
-        System.out.println(gateType);
         gp.nInputs = Integer.parseInt(inputTxt.getText());
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -289,6 +299,16 @@ public class MainJFrame extends javax.swing.JFrame {
         gp.capturedGate = gateType;
     }//GEN-LAST:event_deleteBtnActionPerformed
 
+    private void conectarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectarBtnActionPerformed
+        // TODO add your handling code here:
+        if (gateType == C) {
+            gateType = none;
+        } else {
+            gateType = C;
+        }
+        gp.capturedGate = gateType;
+    }//GEN-LAST:event_conectarBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,6 +346,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton conectarBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTextField inputTxt;
     private javax.swing.JButton jButton1;

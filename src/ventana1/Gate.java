@@ -20,6 +20,8 @@ public class Gate {
     int pinLen = 20;
     int prevCapX;
     int prevCapY;
+    int outputPointX;
+    int outputPointY;
    
     protected boolean [] inputs;
     protected boolean output = false;
@@ -72,8 +74,15 @@ public class Gate {
     {
         return true;
     }
-      
+    
     protected void Draw(Graphics g)
     {
+    }
+    
+    protected void outputPoint(){
+        
+    }
+    boolean isInOutput(int x, int y){
+        return this.outputPointX-5 <= x && this.outputPointY-5 <= y && this.outputPointX+5 >= x && this.outputPointY+5 >= y;
     }
 }

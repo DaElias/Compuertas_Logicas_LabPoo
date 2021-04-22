@@ -40,6 +40,13 @@ public class And extends Gate {
         
         //Output
         g.drawLine(x + width, y + height/2, x + width + pinLen, y + height/2);
+        outputPoint();
+    }
+    
+    @Override
+    public void outputPoint(){
+        this.outputPointX = x + width + pinLen;
+        this.outputPointY = y + height/2;
     }
     
     @Override

@@ -44,6 +44,13 @@ public class Nand extends Gate {
         //Output
         g.drawOval(x + width, (y + height/2)- ballHeight/2, ballWidth, ballHeight);
         g.drawLine(x + width + ballWidth, y + height/2, x + width + pinLen + ballWidth, y + height/2);
+        outputPoint();
+    }
+    
+    @Override
+    public void outputPoint(){
+        this.outputPointX = x + width + pinLen + ballWidth;
+        this.outputPointY = y + height/2;
     }
     
     public boolean IsIn(int x, int y)

@@ -37,6 +37,13 @@ public class Not extends Gate{
         //Output
         g.drawOval(x + width, (y + height/2) - ballWidth/2, ballWidth, ballHeight);
         g.drawLine(x + width + ballWidth, y + height/2, x + width + pinLen + ballWidth, y + height/2);
+        outputPoint();
+    }
+    
+    @Override
+    public void outputPoint(){
+        this.outputPointX = x + width + pinLen + ballWidth;
+        this.outputPointY = y + height/2;
     }
     
     @Override
