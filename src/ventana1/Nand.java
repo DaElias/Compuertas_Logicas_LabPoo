@@ -45,34 +45,7 @@ public class Nand extends Gate {
         g.drawOval(x + width, (y + height/2)- ballHeight/2, ballWidth, ballHeight);
         g.drawLine(x + width + ballWidth, y + height/2, x + width + pinLen + ballWidth, y + height/2);
     }
-    
-    public boolean IsIn(int x, int y)
-    {
-        return (this.x <= x && this.y <= y && 
-                this.x + this.width >= x && this.y + height >= y);
-    }
-    
-    public void UpdateLocation(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int GetXLocation()
-    {
-        return x;
-    }
-
-    public int GetYLocation()
-    {
-        return y;
-    }
-
-    public Point GetLocation()
-    {
-        return new Point(x, y);
-    }
-    
+ 
     @Override
     public boolean eval()
     {

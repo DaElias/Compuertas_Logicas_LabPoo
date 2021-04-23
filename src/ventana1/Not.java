@@ -1,55 +1,47 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ventana1;
 
 import java.awt.Graphics;
 
 /**
  *
- * @author yepes
+ * @author NLEAL
  */
-public class Not extends Gate {
+public class Not extends Gate{
     private int ballWidth = 10;
-    private int ballHeigth = 10;
-    
-    public Not(int x,int y, int w, int h) {
-        super(1);
+    private int ballHeight = 10;
+    public Not(int x, int y, int w, int h, int nInputs)
+    {
+        super( 1 );
         this.x = x;
         this.y = y;
-        width = w;
-        height = h;
+        this.width = w;
+        this.height = h;
     }
     
-    //Getters
-    public int getX(){
-        return x;
-    }
-    
-    public int getY(){
-        return y;
-    }
-    
-    //Set Gate new location
-    public void setNewLocation(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-    //Método para saber si el mouse está dentro de la compuerta
-    public boolean isIn(int mX, int mY){
-        return mX >= this.x && mY >= this.y && mX <= this.x+width && mY <= this.y+height;
-    }
-    
-     //Método para dibujar la compuerta
-    public void draw(Graphics g){
-        
-        //Input
-        g.drawLine(x-pinLen, y+height/2, x, y+height/2);
-        
-        //Triangle
-        g.drawLine(x, y, x, y+height);
-        g.drawLine(x, y, x+width, y+height/2);
-        g.drawLine(x, y+height, x+width, y+height/2);
-        g.drawOval(x+width, (y+height/2)-ballHeigth/2, ballWidth, ballHeigth);
+    @Override
+    public void Draw(Graphics g)
+    {
+        //Body
+        g.drawLine(x, y, x, y + height);
+        g.drawLine(x, y, x + width, y + height/2);
+        g.drawLine(x, y + height, x + width, y + height/2);
+
+        //Inputs
+        g.drawLine(x, y + height/2, x - pinLen, y + height/2);
         
         //Output
-        g.drawLine(x+width+ballWidth, y+height/2, x+width+ballWidth+pinLen, y+height/2);
+        g.drawOval(x + width, (y + height/2) - ballWidth/2, ballWidth, ballHeight);
+        g.drawLine(x + width + ballWidth, y + height/2, x + width + pinLen + ballWidth, y + height/2);
+    }
+    
+    @Override
+    public boolean eval()
+    {
+        return !output;
     }
 }

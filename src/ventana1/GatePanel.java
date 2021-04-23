@@ -1,100 +1,171 @@
 package ventana1;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
+/**
+ */
+public class GatePanel extends JPanel {
 
-public class GatePanel extends JPanel
-  {
-    public And and01 = new And(100, 100, 60, 50, 2);
+    ArrayList<Gate> gates = null;
+    ArrayList<Conector> conectors = new ArrayList<Conector>();
+    final int none = 0;
+    final int and = 1;
+    final int or = 2;
+    final int not = 3;
+    final int xOr = 4;
+    final int nand = 5;
+    final int nor = 6;
+    final int xnor = 7;
+    final int X = -1;
+    final int C = -2;
+    final int gateWidth = 40;
+    final int gateHeight = 30;
+
+    public int capturedGate;
+    public int nInputs;
     
-    Not not = new Not(80, 80, 50, 50); // x,y, anchura, altura
+    private Point pointInitialCap;
+    private Point pointFinalCap;
+
+    static private int count=0;
     
-    Nand nand = new Nand(150, 150, 60, 50, 5);
-    
-    public GatePanel()
-    {
+    public GatePanel() {
+        
+
         addMouseListener(
-            new MouseAdapter() {
+                new MouseAdapter() {
             @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (capturedGate != none) {
+                   
+                    if (capturedGate == X){
+                        count = 0;
+                        if (gates != null){
+                            for (Gate gate:gates){
+                                if (gate.IsIn(evt.getX(), evt.getY())) {
+                                    gates.remove(gate);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else if (capturedGate == C) {
+                        if(count == 0){
+                            pointInitialCap = new Point(evt.getX(),evt.getY());
+                            count++;
+                            System.out.println("Posicion incial " + new Point(evt.getX(),evt.getY()).toString());
+                            
+                        }
+                        else if(count == 1){
+                            pointFinalCap = new Point(evt.getX(), evt.getY());                    
+                            conectors.add(new Conector(pointInitialCap,pointFinalCap));
+                            System.out.println("posicion final " + new Point(evt.getX(),evt.getY()).toString());
+                            count = 0;
+                        }
+                    }
+                    else{
+                        count = 0;
+                        drawGate(capturedGate, evt.getX(), evt.getY(), gateWidth, gateHeight, nInputs);    
+                    }
+                }
+                repaint();
+            }
+
+            @Override  //clik 
             public void mousePressed(MouseEvent evt) {
-                if (and01.IsIn(evt.getX(), evt.getY()))
-                {
-                    and01.mouseCaptured = true;
-                    and01.prevCapX = evt.getX();
-                    and01.prevCapY = evt.getY();
-                }
-                if (not.isIn(evt.getX(), evt.getY())){
-                    not.mouseCaptured = true;
-                    not.prevCapX = evt.getX();
-                    not.prevCapY = evt.getY();
-                }
-                if (nand.IsIn(evt.getX(), evt.getY())){
-                    nand.mouseCaptured = true;
-                    nand.prevCapX = evt.getX();
-                    nand.prevCapY = evt.getY();
+
+                if (gates != null) {
+                    for (Gate gate : gates) {
+                        gate = (Gate) gate;
+                        if (gate.IsIn(evt.getX(), evt.getY())) {
+                            gate.mouseCaptured = true;
+                            gate.prevCapX = evt.getX();
+                            gate.prevCapY = evt.getY();
+                        }
+                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent evt)
-            {
-                and01.mouseCaptured = false;
-                not.mouseCaptured = false;
-                nand.mouseCaptured = false;
+            public void mouseReleased(MouseEvent evt) {
+                if (gates != null) {
+                    for (Gate gate : gates) {
+                        gate.mouseCaptured = false;
+                    }
+                }
             }
         });
 
         addMouseMotionListener(
-            new MouseAdapter() {
+                new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent evt) {
-                if (and01.mouseCaptured)
-                {
-                    int incx = evt.getX() - and01.prevCapX;
-                    int incy = evt.getY() - and01.prevCapY;
+                if (gates != null) {
+                    for (Gate gate : gates) {
+                        if (gate.mouseCaptured) {
+                            int incx = evt.getX() - gate.prevCapX;
+                            int incy = evt.getY() - gate.prevCapY;
 
-                    and01.UpdateLocation(and01.GetXLocation() + incx, and01.GetYLocation() + incy);
+                            gate.UpdateLocation(gate.GetXLocation() + incx, gate.GetYLocation() + incy);
 
-                    and01.prevCapX = evt.getX();
-                    and01.prevCapY = evt.getY();
+                            gate.prevCapX = evt.getX();
+                            gate.prevCapY = evt.getY();
 
-                    repaint();
-                }
-                if (not.mouseCaptured){
-                    int incx = evt.getX() - not.prevCapX;
-                    int incy = evt.getY() - not.prevCapY;
-
-                    not.setNewLocation(not.getX() + incx, not.getY() + incy);
-
-                    not.prevCapX = evt.getX();
-                    not.prevCapY = evt.getY();
-
-                    repaint();
-                }
-                if (nand.mouseCaptured){
-                    int incx = evt.getX() - nand.prevCapX;
-                    int incy = evt.getY() - nand.prevCapY;
-
-                    nand.UpdateLocation(nand.GetXLocation() + incx, nand.GetYLocation() + incy);
-
-                    nand.prevCapX = evt.getX();
-                    nand.prevCapY = evt.getY();
-
-                    repaint();
+                            repaint();
+                        }
+                    }
                 }
             }
         });
     }
-    
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        and01.Draw(g);
-        not.draw(g);
-        nand.Draw(g);
+        if (gates != null) {
+            for (Gate gate : gates) {
+                gate.Draw(g);
+            }
+        }
+        if (conectors != null){
+            for (Conector conector : conectors){
+                conector.draw(g);
+            }
+        }
+    }
+
+    public void drawGate(int type, int x, int y, int width, int height, int inputs) {
+        if (gates == null) {
+            gates = new ArrayList<Gate>();
+        }
+        switch (type) {
+            case and:
+                gates.add(new And(x, y, 50, 60, inputs));
+                break;
+            case or:
+                gates.add(new Or(x, y, 50, 60, inputs));
+                break;
+            case not:
+                gates.add(new Not(x, y, 50, 60, 1));
+                break;
+            case xOr:
+                gates.add(new Xor(x, y, 50, 60, inputs));
+                break;
+            case nand:
+                gates.add(new Nand(x, y, 50, 60, inputs));
+                break;
+            case nor:
+                gates.add(new Nor(x, y, 50, 60, inputs));
+                break;
+            case xnor:
+                gates.add(new Xnor(x, y, 50, 60, inputs));
+                break;
+        }
     }
 }

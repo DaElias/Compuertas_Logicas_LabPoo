@@ -1,11 +1,35 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ventana1;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 
-
+/**
+ *
+ * @author NLEAL
+ */
 public class MainJFrame extends javax.swing.JFrame {
 
+    //public ArrayList<Gate> gates = new ArrayList<Gate>();
+    /**
+     * Creates new form MainJFrame
+     */
+    final int none = 0;
+    final int and = 1;
+    final int or = 2;
+    final int not = 3;
+    final int xor = 4;
+    final int nand = 5;
+    final int nor = 6;
+    final int xnor = 7;
+    final int X = -1;
+    final int C = -2;
+
+    int gateType = none;
 
     GatePanel gp;
 
@@ -16,6 +40,7 @@ public class MainJFrame extends javax.swing.JFrame {
         gp.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(gp);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,18 +51,34 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        lblX = new javax.swing.JLabel();
-        txtX = new javax.swing.JTextField();
-        lblY = new javax.swing.JLabel();
-        txtY = new javax.swing.JTextField();
+        inputTxt = new javax.swing.JTextField();
+        jToolBar1 = new javax.swing.JToolBar();
+        jPanel1 = new javax.swing.JPanel();
+        btn_and = new javax.swing.JButton();
+        btn_or = new javax.swing.JButton();
+        btn_not = new javax.swing.JButton();
+        btn_xor = new javax.swing.JButton();
+        btn_nand = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        deleteBtn = new javax.swing.JButton();
+        btn_conector = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        btn_xnor = new javax.swing.JButton();
+        btn_nor = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txtInputs = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Posiciones(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -47,32 +88,156 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Restart gate");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        inputTxt.setText("2");
+        inputTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                click(evt);
+            }
+        });
+        inputTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                inputTxtActionPerformed(evt);
+            }
+        });
+        inputTxt.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                inputTxtPropertyChange(evt);
             }
         });
 
-        lblX.setText("x:");
+        jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jToolBar1.setRollover(true);
 
-        txtX.setText("100");
-
-        lblY.setText("y:");
-
-        txtY.setText("100");
-        txtY.addActionListener(new java.awt.event.ActionListener() {
+        btn_and.setText("AND");
+        btn_and.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtYActionPerformed(evt);
+                btn_andActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Inputs:");
+        btn_or.setText("OR");
+        btn_or.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_orActionPerformed(evt);
+            }
+        });
 
-        txtInputs.setText("2");
+        btn_not.setText("NOT");
+        btn_not.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_notActionPerformed(evt);
+            }
+        });
+
+        btn_xor.setText("XOR");
+        btn_xor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xorActionPerformed(evt);
+            }
+        });
+
+        btn_nand.setText("NAND");
+        btn_nand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nandActionPerformed(evt);
+            }
+        });
+
+        deleteBtn.setText("Remove");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+
+        btn_conector.setText("Conector");
+        btn_conector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_conectorActionPerformed(evt);
+            }
+        });
+
+        btn_xnor.setText("XNOR");
+        btn_xnor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xnorActionPerformed(evt);
+            }
+        });
+
+        btn_nor.setText("NOR");
+        btn_nor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_norActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btn_nand, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                .addComponent(btn_xor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_not, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_or, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_and, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_conector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btn_xnor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_nor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_and)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_or)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_not)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_xor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_xnor)
+                .addGap(3, 3, 3)
+                .addComponent(btn_nor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_nand)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_conector)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+
+        jToolBar1.add(jPanel1);
+
+        jLabel1.setText("Numeros de entradas");
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,53 +246,152 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblX)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtX, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(lblY)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(0, 507, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtInputs, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addGap(18, 18, 18)
+                        .addComponent(inputTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(lblX)
-                    .addComponent(txtX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblY)
-                    .addComponent(txtY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtInputs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inputTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_andActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_andActionPerformed
         // TODO add your handling code here:
-        gp.and01 = new And(Integer.parseInt(txtX.getText()), Integer.parseInt(txtY.getText()), 
-                           60, 50, Integer.parseInt(txtInputs.getText()));
-        repaint();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (gateType == and) {
+            gateType = none;
+        } else {
+            gateType = and;
+        }
+        gp.capturedGate = gateType;
+        System.out.println(gateType);
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
 
-    private void txtYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtYActionPerformed
+    }//GEN-LAST:event_btn_andActionPerformed
+
+    private void inputTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtYActionPerformed
+
+    }//GEN-LAST:event_inputTxtActionPerformed
+
+    private void btn_orActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_orActionPerformed
+        // TODO add your handling code here:
+        if (gateType == or) {
+            gateType = none;
+        } else {
+            gateType = or;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_btn_orActionPerformed
+
+    private void btn_notActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_notActionPerformed
+        // TODO add your handling code here:
+        if (gateType == not) {
+            gateType = none;
+        } else {
+            gateType = not;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_btn_notActionPerformed
+
+    private void btn_xorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xorActionPerformed
+        // TODO add your handling code here:
+        if (gateType == xor) {
+            gateType = none;
+        } else {
+            gateType = xor;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_btn_xorActionPerformed
+
+    private void btn_nandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nandActionPerformed
+        // TODO add your handling code here:
+        if (gateType == nand) {
+            gateType = none;
+        } else {
+            gateType = nand;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_btn_nandActionPerformed
+    //se agrego el clik
+    private void click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_click
+        // TODO add your handling code here
+        //System.out.println("asd");
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_click
+
+    private void inputTxtPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_inputTxtPropertyChange
+        // TODO add your handling code here:
+        //gp.nInputs = Integer.parseInt(inputTxt.getText());
+
+    }//GEN-LAST:event_inputTxtPropertyChange
+
+    private void Posiciones(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Posiciones
+    }//GEN-LAST:event_Posiciones
+    //public static boolean juntar = false;  //Btn para juntar
+    private void btn_conectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_conectorActionPerformed
+        // TODO add your handling code here:
+        if (gateType == C) {
+            gateType = none;
+        } else {
+            gateType = C;
+        }
+        gp.capturedGate = gateType;
+    }//GEN-LAST:event_btn_conectorActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        if (gateType == X) {
+            gateType = none;
+        } else {
+            gateType = X;
+        }
+        gp.capturedGate = gateType;
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void btn_xnorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xnorActionPerformed
+        // TODO add your handling code here:
+        if (gateType == xnor) {
+            gateType = none;
+        } else {
+            gateType = xnor;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_btn_xnorActionPerformed
+
+    private void btn_norActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_norActionPerformed
+        // TODO add your handling code here:
+        if (gateType == nor) {
+            gateType = none;
+        } else {
+            gateType = nor;
+        }
+        gp.capturedGate = gateType;
+        gp.nInputs = Integer.parseInt(inputTxt.getText());
+    }//GEN-LAST:event_btn_norActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,7 +404,7 @@ public class MainJFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -155,6 +419,7 @@ public class MainJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -165,13 +430,24 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_and;
+    private javax.swing.JButton btn_conector;
+    private javax.swing.JButton btn_nand;
+    private javax.swing.JButton btn_nor;
+    private javax.swing.JButton btn_not;
+    private javax.swing.JButton btn_or;
+    private javax.swing.JButton btn_xnor;
+    private javax.swing.JButton btn_xor;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JTextField inputTxt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblX;
-    private javax.swing.JLabel lblY;
-    private javax.swing.JTextField txtInputs;
-    private javax.swing.JTextField txtX;
-    private javax.swing.JTextField txtY;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
