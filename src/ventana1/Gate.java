@@ -7,6 +7,7 @@ package ventana1;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,9 +21,13 @@ public class Gate {
     int pinLen = 20;
     int prevCapX;
     int prevCapY;
-   
+    int outputPinX1;
+    int outputPinY1;
+    int outputPinX2;
+    int outputPinY2;
     protected boolean [] inputs;
     protected boolean output = false;
+    protected ArrayList<Conector> conectors = new ArrayList<Conector>();
     
     public boolean mouseCaptured = false;
 
@@ -75,5 +80,12 @@ public class Gate {
       
     protected void Draw(Graphics g)
     {
+    }
+    
+    public void outputPin(){
+        
+    }
+    boolean isInOutput(int x, int y){
+        return this.outputPinX1-5 <= x && this.outputPinY1-5 <= y && this.outputPinX2+5 >= x && this.outputPinY2+5 >= y;
     }
 }
