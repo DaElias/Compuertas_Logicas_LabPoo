@@ -42,6 +42,14 @@ public class Xnor extends Gate {
         //Output
         g.drawOval(x+width, y+height/2-2, 4, 4);
         g.drawLine(x+width+4,y+height/2, x+width+25, y+height/2);
+        outputPin();
+    }
+    @Override
+    public void outputPin() {
+        this.outputPinX1 = x + width + 4;
+        this.outputPinY1 = y + height / 2;
+        this.outputPinX2 = x + width + pinLen + 25;
+        this.outputPinY2 = y + height / 2;
     }
 
     @Override
