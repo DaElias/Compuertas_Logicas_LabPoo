@@ -47,20 +47,7 @@ public class Conector {
     }
 
     public void draw(Graphics g) {
-        //puntos
-        g.setColor(Color.RED);
-        g.fillOval((int)puntoInicial.getX(),(int)puntoInicial.getY(), 10, 10); //Punto Inicial
-        g.fillOval((int)puntoFinal.getX(), (int)puntoFinal.getY(), 10, 10);  //Punto Final
-        //g.fillOval(PFinal.getX(), pInicio.getY(), 10, 10);
-        g.setColor(Color.BLUE);
-        g.fillOval((int)W.getX(), (int)W.getY(), 10, 10); //W
-        g.setColor(Color.GREEN);
-        g.fillOval((int)We.getX(), (int)We.getY(), 10, 10); //W/2
-        g.setColor(Color.orange);
-        g.fillOval((int)We.getX(), (int)puntoFinal.getY(), 10, 10);
-
         //Lineas
-        g.setColor(Color.BLACK);
         g.drawLine((int)puntoInicial.getX(), (int)puntoInicial.getY(), (int)We.getX(), (int)We.getY());
         g.drawLine((int)We.getX(), (int)We.getY(), (int)We.getX(), (int)puntoFinal.getY());
         g.drawLine((int)We.getX(), (int)puntoFinal.getY(), (int)puntoFinal.getX(), (int)puntoFinal.getY());

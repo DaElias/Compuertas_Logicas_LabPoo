@@ -87,6 +87,9 @@ public class GatePanel extends JPanel {
                             gate.prevCapX = evt.getX();
                             gate.prevCapY = evt.getY();
                         }
+                        if (gate.isInOutput(evt.getX(),evt.getY())){
+                            System.out.println("hola mundo");
+                        }
                     }
                 }
             }
