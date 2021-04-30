@@ -38,12 +38,14 @@ public class Xnor extends Gate {
         for (int i = 1; i <= inputs.length; i++) {
             g.drawLine(x, y + i * offset, x - 25, y + i * offset);
         }
+        inputPin();
 
         //Output
-        g.drawOval(x+width, y+height/2-2, 4, 4);
-        g.drawLine(x+width+4,y+height/2, x+width+25, y+height/2);
+        g.drawOval(x + width, y + height / 2 - 2, 4, 4);
+        g.drawLine(x + width + 4, y + height / 2, x + width + 25, y + height / 2);
         outputPin();
     }
+
     @Override
     public void outputPin() {
         this.outputPinX1 = x + width + 4;
