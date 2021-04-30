@@ -6,6 +6,7 @@
 package ventana1;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 /**
  *
@@ -34,6 +35,7 @@ public class And extends Gate {
         for (int i = 1; i <= inputs.length; i++) {
             g.drawLine(x, y + i * offset, x - pinLen, y + i * offset);
         }
+        inputPin();
 
         //Output
         g.drawLine(x + width, y + height / 2, x + width + pinLen, y + height / 2);
@@ -48,6 +50,7 @@ public class And extends Gate {
         this.outputPinX2 = x + width + pinLen;
         this.outputPinY2 = y + height / 2;
     }
+   
 
     @Override
     public boolean eval() {

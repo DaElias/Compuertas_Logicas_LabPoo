@@ -28,49 +28,60 @@ public class GatePanel extends JPanel {
 
     public int capturedGate;
     public int nInputs;
-    
+
     private Point pointInitialCap;
     private Point pointFinalCap;
 
-    static private int count=0;
-    
+    static private int count = 0;
+
     public GatePanel() {
-        
 
         addMouseListener(
                 new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 if (capturedGate != none) {
-                   
-                    if (capturedGate == X){
+
+                    if (capturedGate == X) {
                         count = 0;
-                        if (gates != null){
-                            for (Gate gate:gates){
+                        if (gates != null) {
+                            for (Gate gate : gates) {
                                 if (gate.IsIn(evt.getX(), evt.getY())) {
                                     gates.remove(gate);
                                     break;
                                 }
                             }
                         }
-                    }
-                    else if (capturedGate == C) {
-                        if(count == 0){
-                            pointInitialCap = new Point(evt.getX(),evt.getY());
-                            count++;
-                            System.out.println("Posicion incial " + new Point(evt.getX(),evt.getY()).toString());
-                            
+                    } else if (capturedGate == C) {
+                        boolean isIn = false;
+                        if (gates != null) {
+                            for (Gate gate : gates) {
+                                if (gate.isInOutput(evt.getX(), evt.getY()) || gate.isInInput(evt.getX(), evt.getY())) {
+                                    isIn = true;
+                                }
+                            }
                         }
-                        else if(count == 1){
-                            pointFinalCap = new Point(evt.getX(), evt.getY());                    
-                            conectors.add(new Conector(pointInitialCap,pointFinalCap));
-                            System.out.println("posicion final " + new Point(evt.getX(),evt.getY()).toString());
-                            count = 0;
+                        if (count == 0) {
+                            if (isIn) {
+                                pointInitialCap = new Point(evt.getX(), evt.getY());
+                                count++;
+                                System.out.println("Posicion incial " + new Point(evt.getX(), evt.getY()).toString());
+                            } else {
+                                count = 0;
+                            }
+
+                        } else if (count == 1) {
+                            if (isIn) {
+                                pointFinalCap = new Point(evt.getX(), evt.getY());
+                                conectors.add(new Conector(pointInitialCap, pointFinalCap));
+                                System.out.println("posicion final " + new Point(evt.getX(), evt.getY()).toString());
+                                count = 0;
+                            }
+
                         }
-                    }
-                    else{
+                    } else {
                         count = 0;
-                        drawGate(capturedGate, evt.getX(), evt.getY(), gateWidth, gateHeight, nInputs);    
+                        drawGate(capturedGate, evt.getX(), evt.getY(), gateWidth, gateHeight, nInputs);
                     }
                 }
                 repaint();
@@ -87,9 +98,7 @@ public class GatePanel extends JPanel {
                             gate.prevCapX = evt.getX();
                             gate.prevCapY = evt.getY();
                         }
-                        if (gate.isInOutput(evt.getX(),evt.getY())){
-                            System.out.println("hola mundo");
-                        }
+
                     }
                 }
             }
@@ -136,8 +145,8 @@ public class GatePanel extends JPanel {
                 gate.Draw(g);
             }
         }
-        if (conectors != null){
-            for (Conector conector : conectors){
+        if (conectors != null) {
+            for (Conector conector : conectors) {
                 conector.draw(g);
             }
         }

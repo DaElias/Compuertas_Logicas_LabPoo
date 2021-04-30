@@ -12,18 +12,17 @@ import java.awt.Graphics;
  * @author NLEAL
  */
 public class Xor extends Gate {
-    public Xor(int x, int y, int w, int h, int nInputs)
-    {
-        super( nInputs );
+
+    public Xor(int x, int y, int w, int h, int nInputs) {
+        super(nInputs);
         this.x = x;
         this.y = y;
         this.width = w;
         this.height = h;
     }
-    
+
     @Override
-    public void Draw(Graphics g)
-    {
+    public void Draw(Graphics g) {
         super.Draw(g); //To change body of generated methods, choose Tools | Templates.
         g.drawArc(x - width / 2, y, width / 2, height, 90, -180);
         g.drawArc(x - width / 2 - 7, y, width / 2, height, 90, -180);
@@ -38,12 +37,13 @@ public class Xor extends Gate {
         for (int i = 1; i <= inputs.length; i++) {
             g.drawLine(x, y + i * offset, x - 25, y + i * offset);
         }
+        inputPin();
 
         //Output
-        
-        g.drawLine(x+width,y+height/2, x+width+25, y+height/2);
+        g.drawLine(x + width, y + height / 2, x + width + 25, y + height / 2);
         outputPin();
     }
+
     @Override
     public void outputPin() {
         this.outputPinX1 = x + width;
@@ -53,13 +53,11 @@ public class Xor extends Gate {
     }
 
     @Override
-    public boolean eval()
-    {
-        for( int i = 0; i < inputs.length; i++ )
-        {
+    public boolean eval() {
+        for (int i = 0; i < inputs.length; i++) {
             output = output ^ inputs[i];
         }
-        
+
         return output;
     }
 }

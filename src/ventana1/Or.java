@@ -13,37 +13,36 @@ import java.awt.Graphics;
  */
 public class Or extends Gate {
 
-    public Or(int x, int y, int w, int h, int nInputs)
-    {
-        super( nInputs );
+    public Or(int x, int y, int w, int h, int nInputs) {
+        super(nInputs);
         this.x = x;
         this.y = y;
         this.width = w;
         this.height = h;
     }
-    
+
     @Override
-    public void Draw(Graphics g)
-    {
-         super.Draw(g); //To change body of generated methods, choose Tools | Templates.
-        g.drawArc(x-width/2, y,width/2, height, 90, -180);
-        
-        g.drawLine(x-width/4, y, x+32, y);
-        g.drawLine(x-width/4, y+height, x+32, y+height);
-        
+    public void Draw(Graphics g) {
+        super.Draw(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawArc(x - width / 2, y, width / 2, height, 90, -180);
+
+        g.drawLine(x - width / 4, y, x + 32, y);
+        g.drawLine(x - width / 4, y + height, x + 32, y + height);
+
         g.drawArc(x, y, width, height, 90, -180);
-        
 
         //Inputs
         int offset = height / (inputs.length + 1);
         for (int i = 1; i <= inputs.length; i++) {
-            g.drawLine(x, y + i * offset, x-25, y + i * offset);
+            g.drawLine(x, y + i * offset, x - 25, y + i * offset);
         }
+        inputPin();
 
         //Output
-        g.drawLine(x+width,y+height/2, x+width+25, y+height/2);
+        g.drawLine(x + width, y + height / 2, x + width + 25, y + height / 2);
         outputPin();
     }
+
     @Override
     public void outputPin() {
         this.outputPinX1 = x + width;
@@ -53,13 +52,11 @@ public class Or extends Gate {
     }
 
     @Override
-    public boolean eval()
-    {
-        for( int i = 0; i < inputs.length; i++ )
-        {
+    public boolean eval() {
+        for (int i = 0; i < inputs.length; i++) {
             output = output || inputs[i];
         }
-        
+
         return output;
     }
 }

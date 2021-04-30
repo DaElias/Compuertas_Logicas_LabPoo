@@ -40,7 +40,8 @@ public class Nand extends Gate {
         {
             g.drawLine(x, y + i * offset, x - pinLen, y + i * offset);
         }
-        
+        inputPin();
+
         //Output
         g.drawOval(x + width, (y + height/2)- ballHeight/2, ballWidth, ballHeight);
         g.drawLine(x + width + ballWidth, y + height/2, x + width + pinLen + ballWidth, y + height/2);
