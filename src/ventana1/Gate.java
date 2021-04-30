@@ -82,9 +82,14 @@ public class Gate {
     {
     }
     
+    public void inputPin(){
+        
+    }
+    
     public void outputPin(){
         
     }
+    
     boolean isInOutput(int x, int y){
         return this.outputPinX1-5 <= x && this.outputPinY1-5 <= y && this.outputPinX2+5 >= x && this.outputPinY2+5 >= y;
     }

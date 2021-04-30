@@ -39,7 +39,8 @@ public class And extends Gate {
         g.drawLine(x + width, y + height / 2, x + width + pinLen, y + height / 2);
         outputPin();
     }
-
+ 
+    
     @Override
     public void outputPin() {
         this.outputPinX1 = x + width;
