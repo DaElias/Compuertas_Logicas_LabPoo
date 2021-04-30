@@ -8,7 +8,6 @@ package ventana1;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import jdk.internal.org.xml.sax.InputSource;
 
 /**
  *
@@ -34,7 +33,7 @@ public class Gate {
     protected boolean[] inputs;
     protected boolean output = false;
 
-    protected ArrayList<Conector> conectors = new ArrayList<Conector>();
+    protected Conector Outputconectors;
 
     public boolean mouseCaptured = false;
 
@@ -117,4 +116,16 @@ public class Gate {
         return this.outputPinX1 - 5 <= x && this.outputPinY1 - 5 <= y && this.outputPinX2 + 5 >= x && this.outputPinY2 + 5 >= y;
 
     }
+
+    public void setOutputconectors(Conector Outputconectors) {
+        this.Outputconectors = Outputconectors;
+    }
+    public void updateOutputConector(){
+        this.Outputconectors.setPuntoFinal(new Point(this.outputPinX2,this.outputPinY2));
+        
+    }
+    public Conector getOutputConectors(){
+        return this.Outputconectors;
+    }
+        
 }

@@ -20,6 +20,12 @@ public class Conector {
     Point puntoFinal;
     Point W, We;
 
+    /*public Conector() {
+        this.puntoInicial = new Point(0,0);
+        this.puntoFinal = new Point(0,0);
+        this.W = new Point((int)this.puntoInicial.getX() + (int)this.puntoFinal.getX() - (int)this.puntoInicial.getX(), (int)this.puntoInicial.getY());
+        this.We = new Point(((int)this.puntoInicial.getX()) / 2 + ((int)W.getX()) / 2, (int)W.getY());
+    }*/
     public Conector(Point puntoIncial, Point puntoFinal) {
         this.puntoInicial = puntoFinal;
         this.puntoFinal = puntoIncial;
@@ -43,13 +49,15 @@ public class Conector {
         return puntoFinal;
     }
 
-    public void isIn(int x, int y) {
+    public boolean isIn(int x, int y) {
+        return (x>=puntoInicial.getX() && x<= puntoFinal.getX()/2) && (y>= puntoInicial.getY()-5 && y<=puntoInicial.getY()+5);
+                
     }
 
     public void draw(Graphics g) {
         //Lineas
         g.drawLine((int)puntoInicial.getX(), (int)puntoInicial.getY(), (int)We.getX(), (int)We.getY());
-        g.drawLine((int)We.getX(), (int)We.getY(), (int)We.getX(), (int)puntoFinal.getY());
+        g.drawLine((int)We.getX(), (int)puntoInicial.getY(), (int)We.getX(), (int)puntoFinal.getY());
         g.drawLine((int)We.getX(), (int)puntoFinal.getY(), (int)puntoFinal.getX(), (int)puntoFinal.getY());
 
     }
