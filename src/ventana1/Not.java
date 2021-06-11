@@ -52,6 +52,6 @@ public class Not extends Gate{
     @Override
     public boolean eval()
     {
-        return !output;
+        return !false;
     }
 }

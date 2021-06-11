@@ -1,7 +1,6 @@
 package ventana1;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import javax.swing.JPanel;
 public class GatePanel extends JPanel {
 
     ArrayList<Gate> gates = null;
-    ArrayList<Conector> conectors = new ArrayList<Conector>();
     final int none = 0;
     final int and = 1;
     final int or = 2;
@@ -23,14 +21,13 @@ public class GatePanel extends JPanel {
     final int xnor = 7;
     final int X = -1;
     final int C = -2;
+    final int E = -3;
     final int gateWidth = 40;
     final int gateHeight = 30;
 
     public int capturedGate;
     public int nInputs;
-
-    private Point pointInitialCap;
-    private Point pointFinalCap;
+    public ArrayList entradas;
 
     static private int count = 0;
     private Gate gateselect;
@@ -55,6 +52,9 @@ public class GatePanel extends JPanel {
                         }
 
                     }
+                    if (capturedGate == E){
+                        System.out.println("evaluando");
+                    }
                     if (capturedGate == C) {
                         if (count == 0) {
 
@@ -62,19 +62,23 @@ public class GatePanel extends JPanel {
                                 for (Gate gate : gates) {
                                     if (gate.isInOutput(evt.getX(), evt.getY())) {
                                         count++;
-                                        pointInitialCap = new Point(gate.outputPinX2, gate.outputPinY2);
-                                        System.out.println(pointInitialCap.toString());
                                         gateselect = gate;
                                     }
                                 }
                             }
                         } else if (count != 0) {
-                            count = 0;
-                            pointFinalCap = new Point(evt.getX(), evt.getY());
+                            
+                             if (gates != null) {
+                                for (Gate gate : gates) {
+                                    if(gate.isInInput(evt.getX(), evt.getY())){
+                                        gateselect.addEndPoint(new EndPoint(gateselect, gate, gate.inputPinSelected));
+                                        System.out.println(gate.inputPinSelected);
+                                        count=0;
+                                    }
+                                }
+                             }
 
-                            gateselect.setOutputconectors(new Conector(pointInitialCap, pointFinalCap));
-
-                            System.out.println(pointFinalCap.toString());
+                            
                             repaint();
                         }
 
@@ -126,9 +130,7 @@ public class GatePanel extends JPanel {
 
                             gate.prevCapX = evt.getX();
                             gate.prevCapY = evt.getY();
-                            if(gate.getOutputConectors() != null){
-                                gate.updateOutputConector();
-                            }
+                            
                             repaint();
                         }
                     }
@@ -145,21 +147,17 @@ public class GatePanel extends JPanel {
         if (gates != null) {
             for (Gate gate : gates) {
                 gate.Draw(g);
-                if (gate.getOutputConectors() != null) {
-                    gate.getOutputConectors().draw(g);
-
-                }
             }
         }
     }
 
     public void drawGate(int type, int x, int y, int width, int height, int inputs) {
         if (gates == null) {
-            gates = new ArrayList<Gate>();
+            gates = new ArrayList<>();
         }
         switch (type) {
             case and:
-                gates.add(new And(x, y, 50, 60, inputs));
+                gates.add(new And(x, y, 50, 60, inputs, entradas));
                 break;
             case or:
                 gates.add(new Or(x, y, 50, 60, inputs));

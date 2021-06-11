@@ -34,8 +34,8 @@ public class Xnor extends Gate {
         g.drawArc(x, y, width, height, 90, -180);
 
         //Inputs
-        int offset = height / (inputs.length + 1);
-        for (int i = 1; i <= inputs.length; i++) {
+        int offset = height / (nInputs + 1);
+        for (int i = 1; i <= nInputs; i++) {
             g.drawLine(x, y + i * offset, x - 25, y + i * offset);
         }
         inputPin();

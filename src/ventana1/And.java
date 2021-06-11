@@ -6,7 +6,7 @@
 package ventana1;
 
 import java.awt.Graphics;
-import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,8 +14,8 @@ import java.awt.Point;
  */
 public class And extends Gate {
 
-    public And(int x, int y, int w, int h, int nInputs) {
-        super(nInputs);
+    public And(int x, int y, int w, int h, int nInputs, ArrayList entradas) {
+        super(nInputs, entradas);
         this.x = x;
         this.y = y;
         this.width = w;
@@ -24,6 +24,7 @@ public class And extends Gate {
 
     @Override
     public void Draw(Graphics g) {
+        super.Draw(g);
         //Body
         g.drawLine(x, y, x, y + height);
         g.drawLine(x, y, x + width / 2, y);
@@ -31,8 +32,8 @@ public class And extends Gate {
         g.drawArc(x, y, width, height, 90, -180);
 
         //Inputs
-        int offset = height / (inputs.length + 1);
-        for (int i = 1; i <= inputs.length; i++) {
+        int offset = height / (nInputs + 1);
+        for (int i = 1; i <= nInputs; i++) {
             g.drawLine(x, y + i * offset, x - pinLen, y + i * offset);
         }
         inputPin();
@@ -40,9 +41,9 @@ public class And extends Gate {
         //Output
         g.drawLine(x + width, y + height / 2, x + width + pinLen, y + height / 2);
         outputPin();
+     
     }
- 
-    
+
     @Override
     public void outputPin() {
         this.outputPinX1 = x + width;
@@ -50,14 +51,10 @@ public class And extends Gate {
         this.outputPinX2 = x + width + pinLen;
         this.outputPinY2 = y + height / 2;
     }
-   
 
     @Override
     public boolean eval() {
-        for (int i = 0; i < inputs.length; i++) {
-            output = output && inputs[i];
-        }
-
-        return output;
+        
+        return this.inputsValues.get(0) & this.inputsValues.get(1);
     }
 }

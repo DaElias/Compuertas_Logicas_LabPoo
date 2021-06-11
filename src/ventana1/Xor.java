@@ -33,8 +33,8 @@ public class Xor extends Gate {
         g.drawArc(x, y, width, height, 90, -180);
 
         //Inputs
-        int offset = height / (inputs.length + 1);
-        for (int i = 1; i <= inputs.length; i++) {
+        int offset = height / (nInputs + 1);
+        for (int i = 1; i <= nInputs; i++) {
             g.drawLine(x, y + i * offset, x - 25, y + i * offset);
         }
         inputPin();
@@ -54,10 +54,7 @@ public class Xor extends Gate {
 
     @Override
     public boolean eval() {
-        for (int i = 0; i < inputs.length; i++) {
-            output = output ^ inputs[i];
-        }
 
-        return output;
+        return false;
     }
 }

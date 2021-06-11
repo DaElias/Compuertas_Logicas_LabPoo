@@ -27,41 +27,44 @@ public class Gate {
     int outputPinX2;
     int outputPinY2;
 
+    int nInputs;
     Point[] inputsPinInicial;
     Point[] inputsPinFinal;
+    ArrayList<Boolean> inputsValues;
 
-    protected boolean[] inputs;
-    protected boolean output = false;
+    protected int inputPinSelected;
 
-    protected Conector Outputconectors;
+    protected ArrayList<EndPoint> endpoints = new ArrayList<>();
 
     public boolean mouseCaptured = false;
 
-    public Gate(int nInputs) {
+    public Gate(int nInputs,ArrayList inputsValues) {
         this.inputsPinInicial = new Point[nInputs];
         this.inputsPinFinal = new Point[nInputs];
-        this.inputs = new boolean[nInputs];
-        this.inputs = new boolean[nInputs];
-        this.inputs = new boolean[nInputs];
+        this.inputsValues = inputsValues;
+        this.nInputs = nInputs;
 
     }
 
-    public void setInputs(boolean[] values) {
-        this.inputs = values;
+    public int GetWidth() {
+        return width;
     }
 
-    public boolean getOutput() {
-        return this.output;
+    public int GetHeight() {
+        return height;
+    }
+
+    public int GetPinLen() {
+        return pinLen;
+    }
+
+    public int getInputPinSelected() {
+        return inputPinSelected;
     }
 
     public boolean IsIn(int x, int y) {
         return (this.x <= x && this.y <= y
                 && this.x + this.width >= x && this.y + height >= y);
-    }
-
-    public void UpdateLocation(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 
     public int GetXLocation() {
@@ -76,32 +79,30 @@ public class Gate {
         return new Point(x, y);
     }
 
-    protected boolean eval() {
-        return true;
-    }
-
-    protected void Draw(Graphics g) {
+    public void UpdateLocation(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void inputPin() {
-        if (inputs.length > 1) {
-            int offset = height / (inputs.length + 1);
-            for (int i = 1; i <= inputs.length; i++) {
+        if (nInputs > 1) {
+            int offset = height / (nInputs + 1);
+            for (int i = 1; i <= nInputs; i++) {
                 this.inputsPinInicial[i - 1] = new Point(x, y + i * offset);
                 this.inputsPinFinal[i - 1] = (new Point(x - pinLen, y + i * offset));
 
             }
-        }else if(inputs.length ==1){
-            this.inputsPinInicial[0] = new Point(x, y + height/2);
-            this.inputsPinFinal[0] = (new Point( x - pinLen, y + height/2));
+        } else if (nInputs == 1) {
+            this.inputsPinInicial[0] = new Point(x, y + height / 2);
+            this.inputsPinFinal[0] = (new Point(x - pinLen, y + height / 2));
         }
-        
 
     }
 
     public boolean isInInput(int evtX, int evtY) {
-        for (int i = 0; i < inputs.length; i++) {
+        for (int i = 0; i < nInputs; i++) {
             if ((evtX <= this.inputsPinInicial[i].getX() && evtX >= this.inputsPinFinal[i].getX()) && (evtY >= this.inputsPinInicial[i].getY() - 5 && evtY <= this.inputsPinInicial[i].getY() + 5)) {
+                this.inputPinSelected = i + 1;
                 return true;
             }
         }
@@ -117,15 +118,20 @@ public class Gate {
 
     }
 
-    public void setOutputconectors(Conector Outputconectors) {
-        this.Outputconectors = Outputconectors;
+    public void addEndPoint(EndPoint endPoint) {
+        endpoints.add(endPoint);
     }
-    public void updateOutputConector(){
-        this.Outputconectors.setPuntoFinal(new Point(this.outputPinX2,this.outputPinY2));
-        
+
+    protected boolean eval() {
+        return true;
     }
-    public Conector getOutputConectors(){
-        return this.Outputconectors;
+
+    protected void Draw(Graphics g) {
+        if (endpoints != null) {
+            endpoints.forEach((endp) -> {
+                endp.Draw(g);
+            });
+        }
     }
-        
+
 }
