@@ -6,6 +6,7 @@
 package ventana1;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +20,8 @@ public class Nor extends Gate {
         this.y = y;
         this.width = w;
         this.height = h;
+        this.inputsValues = new ArrayList<Boolean>();
+
     }
 
     @Override
@@ -54,7 +57,14 @@ public class Nor extends Gate {
     }
 
     @Override
-    public boolean eval() {
-        return false;
+    public String eval() {
+        String msg;
+        try {
+            this.outputValue = !(this.inputsValues.get(0) || this.inputsValues.get(1));
+            msg = "el valor de salida es " + outputValue;
+        } catch (IndexOutOfBoundsException e) {
+            msg = "no tiene valores en las entrada";
+        }
+        return msg;
     }
 }

@@ -14,12 +14,13 @@ import java.util.ArrayList;
  */
 public class And extends Gate {
 
-    public And(int x, int y, int w, int h, int nInputs, ArrayList entradas) {
-        super(nInputs, entradas);
+    public And(int x, int y, int w, int h, int nInputs) {
+        super(nInputs);
         this.x = x;
         this.y = y;
         this.width = w;
         this.height = h;
+        this.inputsValues = new ArrayList<Boolean>();
     }
 
     @Override
@@ -41,7 +42,7 @@ public class And extends Gate {
         //Output
         g.drawLine(x + width, y + height / 2, x + width + pinLen, y + height / 2);
         outputPin();
-     
+
     }
 
     @Override
@@ -53,8 +54,15 @@ public class And extends Gate {
     }
 
     @Override
-    public boolean eval() {
+    public String eval() {
+        String msg;
+        try {
+            this.outputValue = this.inputsValues.get(0) & this.inputsValues.get(1);
+            msg = "el valor de salida es " + outputValue;
+        } catch (IndexOutOfBoundsException e) {
+            msg = "no tiene valores en las entrada";
+        }
         
-        return this.inputsValues.get(0) & this.inputsValues.get(1);
+        return msg;
     }
 }

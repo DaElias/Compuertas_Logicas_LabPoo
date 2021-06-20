@@ -6,6 +6,7 @@
 package ventana1;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,11 +22,14 @@ public class Not extends Gate{
         this.y = y;
         this.width = w;
         this.height = h;
+        this.inputsValues = new ArrayList<Boolean>();
+
     }
     
     @Override
     public void Draw(Graphics g)
     {
+        super.Draw(g);
         //Body
         g.drawLine(x, y, x, y + height);
         g.drawLine(x, y, x + width, y + height/2);
@@ -50,8 +54,15 @@ public class Not extends Gate{
     }
    
     @Override
-    public boolean eval()
+    public String eval()
     {
-        return !false;
+        String msg;
+        try {
+            this.outputValue = !this.inputsValues.get(0);
+            msg = "el valor de salida es " + outputValue;
+        } catch (IndexOutOfBoundsException e) {
+            msg = "no tiene valores en las entrada";
+        }
+        return msg;
     }
 }

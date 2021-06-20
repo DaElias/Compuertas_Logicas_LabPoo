@@ -31,6 +31,8 @@ public class Gate {
     Point[] inputsPinInicial;
     Point[] inputsPinFinal;
     ArrayList<Boolean> inputsValues;
+    
+    boolean outputValue;
 
     protected int inputPinSelected;
 
@@ -38,7 +40,7 @@ public class Gate {
 
     public boolean mouseCaptured = false;
 
-    public Gate(int nInputs,ArrayList inputsValues) {
+    public Gate(int nInputs) {
         this.inputsPinInicial = new Point[nInputs];
         this.inputsPinFinal = new Point[nInputs];
         this.inputsValues = inputsValues;
@@ -46,6 +48,11 @@ public class Gate {
 
     }
 
+    public void setInputsValues(Boolean inputValue) {
+        this.inputsValues.add(inputValue);
+    }
+    
+    
     public int GetWidth() {
         return width;
     }
@@ -122,8 +129,8 @@ public class Gate {
         endpoints.add(endPoint);
     }
 
-    protected boolean eval() {
-        return true;
+    protected String eval() {
+        return "";
     }
 
     protected void Draw(Graphics g) {

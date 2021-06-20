@@ -7,7 +7,6 @@ package ventana1;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Color;
 
 
 /**

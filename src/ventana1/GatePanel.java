@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -19,15 +20,16 @@ public class GatePanel extends JPanel {
     final int nand = 5;
     final int nor = 6;
     final int xnor = 7;
+    final int high = 8;
+    final int low = 9;
     final int X = -1;
     final int C = -2;
-    final int E = -3;
+    final int V = -3;
     final int gateWidth = 40;
     final int gateHeight = 30;
 
     public int capturedGate;
     public int nInputs;
-    public ArrayList entradas;
 
     static private int count = 0;
     private Gate gateselect;
@@ -52,8 +54,17 @@ public class GatePanel extends JPanel {
                         }
 
                     }
-                    if (capturedGate == E){
-                        System.out.println("evaluando");
+                    if (capturedGate == V){
+                        count = 0;
+                        if (gates != null) {
+                            for (Gate gate : gates) {
+                                if (gate.IsIn(evt.getX(), evt.getY())) {
+                                    JOptionPane.showMessageDialog(null, gate.eval());
+                                    break;
+                                }
+                            }
+                        }
+
                     }
                     if (capturedGate == C) {
                         if (count == 0) {
@@ -72,6 +83,7 @@ public class GatePanel extends JPanel {
                                 for (Gate gate : gates) {
                                     if(gate.isInInput(evt.getX(), evt.getY())){
                                         gateselect.addEndPoint(new EndPoint(gateselect, gate, gate.inputPinSelected));
+                                        gate.setInputsValues(gateselect.outputValue);
                                         System.out.println(gate.inputPinSelected);
                                         count=0;
                                     }
@@ -157,7 +169,7 @@ public class GatePanel extends JPanel {
         }
         switch (type) {
             case and:
-                gates.add(new And(x, y, 50, 60, inputs, entradas));
+                gates.add(new And(x, y, 50, 60, inputs));
                 break;
             case or:
                 gates.add(new Or(x, y, 50, 60, inputs));
@@ -176,6 +188,12 @@ public class GatePanel extends JPanel {
                 break;
             case xnor:
                 gates.add(new Xnor(x, y, 50, 60, inputs));
+                break;
+            case high:
+                gates.add(new HighConstant(x,y,50,60));
+                break;
+            case low:
+                gates.add(new LowConstant(x,y,50,60));
                 break;
         }
     }

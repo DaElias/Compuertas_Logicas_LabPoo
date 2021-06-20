@@ -6,6 +6,7 @@
 package ventana1;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Xnor extends Gate {
         this.y = y;
         this.width = w;
         this.height = h;
-
+        this.inputsValues = new ArrayList<Boolean>();
     }
 
     @Override
@@ -55,8 +56,22 @@ public class Xnor extends Gate {
     }
 
     @Override
-    protected boolean eval() {
-        return false;
+    protected String eval() {
+        String msg;
+        try {
+            if(this.inputsValues.get(0) == this.inputsValues.get(1)){
+                this.outputValue = true;
+            }
+            else{
+                this.outputValue = false;
+            }
+        this.inputsValues = new ArrayList<Boolean>();
+            msg = "el valor de salida es " + outputValue;
+        } catch (IndexOutOfBoundsException e) {
+            msg = "no tiene valores en las entrada";
+        }
+        
+        return msg;    
     }
 
 }
